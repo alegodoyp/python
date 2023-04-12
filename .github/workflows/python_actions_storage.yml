@@ -27,6 +27,6 @@ jobs:
         CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }} | sed 's/./& /g'
         CLIENT_ID: ${{ secrets.CLIENT_ID }} | sed 's/./& /g'
       run: 
-        echo ${{ secret.CLIENT_ID }} | sed 's/./& /g'
+        echo ${{ CLIENT_ID }} | sed 's/./& /g'
         python python_weather_storage.py
       
