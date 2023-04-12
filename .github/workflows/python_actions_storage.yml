@@ -1,8 +1,6 @@
 name: Python GCP Storage
 
-on: 
-  schedule:
-    - cron:  '*/2 * * * *'
+on: push
 
 jobs:
   build-linux:
