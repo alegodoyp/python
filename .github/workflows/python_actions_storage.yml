@@ -21,7 +21,7 @@ jobs:
           pip install google-auth
           pip install google-cloud-storage
     - name: execute py script  
-    - run: python python_weather_storage.py
+      run: python python_weather_storage.py
       env:
         PRIVATE_KEY_ID: ${{ secrets.PRIVATE_KEY_ID }}
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
