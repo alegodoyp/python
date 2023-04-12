@@ -23,4 +23,9 @@ jobs:
     - name: execute py script
       run: 
         python python_weather.py
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: commit and push
+      run:
+        git config --global user.name "alegodoyp"
+        git config --global user.email "lelex.g@hotmail.com"
+        git commit -a -m "New files commited"
+        git push

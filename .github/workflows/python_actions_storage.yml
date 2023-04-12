@@ -20,11 +20,10 @@ jobs:
           pip install beautifulsoup4 requests
           pip install google-auth
           pip install google-cloud-storage
-    - name: execute py script
+    - name: execute py script  
+    - run: python python_weather_storage.py
       env:
         PRIVATE_KEY_ID: ${{ secrets.PRIVATE_KEY_ID }}
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL}}
         CLIENT_ID: ${{ secrets.CLIENT_ID}}
-      run: 
-        python python_weather_storage.py
