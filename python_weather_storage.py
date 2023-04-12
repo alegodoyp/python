@@ -22,17 +22,17 @@ try:
 
   """Uploads a file to the bucket."""
   credentials = service_account.Credentials.from_service_account_info({
-  "type": "service_account",
-  "project_id": "tranquil-lotus-368022",
-  "private_key_id": os.environ.get('PRIVATE_KEY_ID'),
-  "private_key": os.environ.get('PRIVATE_KEY'),
-  "client_email": os.environ.get('CLIENT_EMAIL'),
-  "client_id": os.environ.get('CLIENT_ID'),
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tranquil-lotus-368022%40appspot.gserviceaccount.com"
-})
+    "type": "service_account",
+    "project_id": "tranquil-lotus-368022",
+    "private_key_id": os.environ.get('PRIVATE_KEY_ID'),
+    "private_key": os.environ.get('PRIVATE_KEY'),
+    "client_email": os.environ.get('CLIENT_EMAIL'),
+    "client_id": os.environ.get('CLIENT_ID'),
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tranquil-lotus-368022%40appspot.gserviceaccount.com"
+  })
   storage_client = storage.Client(credentials=credentials)
   bucket = storage_client.get_bucket('weather_sp')
   blob = bucket.blob('weather_info.txt')
