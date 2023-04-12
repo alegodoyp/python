@@ -21,12 +21,10 @@ jobs:
           pip install google-auth
           pip install google-cloud-storage
     - name: execute py script  
-      env:
-        PRIVATE_KEY_ID: ${{ secrets.PRIVATE_KEY_ID }}
-        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-        CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
-        CLIENT_ID: ${{ secrets.CLIENT_ID }}
       run: 
-        echo ${CLIENT_ID}
+        PRIVATE_KEY_ID = {{ secrets.PRIVATE_KEY_ID }}
+        PRIVATE_KEY = {{ secrets.PRIVATE_KEY }}
+        CLIENT_EMAIL = {{ secrets.CLIENT_EMAIL }}
+        CLIENT_ID = {{ secrets.CLIENT_ID }}
         python python_weather_storage.py
       
