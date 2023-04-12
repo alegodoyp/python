@@ -27,6 +27,6 @@ jobs:
         CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
       run: 
-        echo KEY: '${CLIENT_ID}
+        echo ${CLIENT_ID}
         python python_weather_storage.py
       
