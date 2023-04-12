@@ -11,10 +11,10 @@ headers = {
 credentials_dict = {
   "type": "service_account",
   "project_id": "tranquil-lotus-368022",
-  "private_key_id": os.environ.get('PRIVATE_KEY_ID'),
-  "private_key": os.environ.get('PRIVATE_KEY'),
-  "client_email": os.environ.get('CLIENT_EMAIL'),
-  "client_id": os.environ.get('CLIENT_ID'),
+  "private_key_id": {os.environ.get('PRIVATE_KEY_ID')},
+  "private_key": {os.environ.get('PRIVATE_KEY')},
+  "client_email": {os.environ.get('CLIENT_EMAIL')},
+  "client_id": {os.environ.get('CLIENT_ID')},
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
@@ -32,7 +32,6 @@ try:
   info = soup.find_all("span", class_="LrzXr kno-fv wHYlTd z8gr9e")[0].getText()
   
   print(info)
-  print(credentials_dict)
 
   """Uploads a file to the bucket."""
   credentials = service_account.Credentials.from_service_account_info(credentials_dict)
