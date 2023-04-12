@@ -1,4 +1,4 @@
-name: Python GitActions
+name: Python GCP Storage
 
 on: 
   schedule:
@@ -20,11 +20,18 @@ jobs:
       run:
           python -m pip install --upgrade pip
           pip install beautifulsoup4 requests
+          pip install google-auth
+          pip install google-cloud-storage
     - name: execute py script
       run: 
-        python python_weather.py
+        python python_weather_storage.py
         git config user.name alegodoyp
         git config user.email lelex.g@hotmail.com
         git add .
-        git commit -m "crongenerated"
+        git commit -m "crongenerated storage"
         git push
+      env:
+        PRIVATE_KEY_ID: ${{ secrets.PRIVATE_KEY_ID }}
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL}}
+        CLIENT_ID: ${{ secrets.CLIENT_ID}}
