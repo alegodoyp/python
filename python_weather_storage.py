@@ -8,19 +8,6 @@ headers = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
-credentials_dict = {
-  "type": "service_account",
-  "project_id": "tranquil-lotus-368022",
-  "private_key_id": os.environ.get('PRIVATE_KEY_ID'),
-  "private_key": os.environ.get('PRIVATE_KEY'),
-  "client_email": os.environ.get('CLIENT_EMAIL'),
-  "client_id": os.environ.get('CLIENT_ID'),
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tranquil-lotus-368022%40appspot.gserviceaccount.com"
-}
-
 try:
   res = requests.get(
     f'https://www.google.com/search?q=SaoPauloCidade&oq=SaoPauloCidade&aqs=chrome.0.35i39l2j0l4j46j69i60.6128j1j7&sourceid=chrome&ie=UTF-8', headers=headers)
@@ -32,10 +19,20 @@ try:
   info = soup.find_all("span", class_="LrzXr kno-fv wHYlTd z8gr9e")[0].getText()
   
   print(info)
-  print(credentials_dict)
 
   """Uploads a file to the bucket."""
-  credentials = service_account.Credentials.from_service_account_info(credentials_dict)
+  credentials = service_account.Credentials.from_service_account_info({
+  "type": "service_account",
+  "project_id": "tranquil-lotus-368022",
+  "private_key_id": os.environ.get('PRIVATE_KEY_ID'),
+  "private_key": os.environ.get('PRIVATE_KEY'),
+  "client_email": os.environ.get('CLIENT_EMAIL'),
+  "client_id": os.environ.get('CLIENT_ID'),
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/tranquil-lotus-368022%40appspot.gserviceaccount.com"
+})
   storage_client = storage.Client(credentials=credentials)
   bucket = storage_client.get_bucket('weather_sp')
   blob = bucket.blob('weather_info.txt')
