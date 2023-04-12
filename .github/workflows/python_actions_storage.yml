@@ -26,5 +26,7 @@ jobs:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         CLIENT_EMAIL: ${{ secrets.CLIENT_EMAIL }}
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
-      run: python python_weather_storage.py
+      run: 
+        echo KEY: '${CLIENT_ID}
+        python python_weather_storage.py
       
