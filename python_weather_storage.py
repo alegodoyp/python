@@ -32,7 +32,6 @@ try:
   info = soup.find_all("span", class_="LrzXr kno-fv wHYlTd z8gr9e")[0].getText()
   
   print(info)
-  print(credentials_dict)
 
   """Uploads a file to the bucket."""
   credentials = service_account.Credentials.from_service_account_info(credentials_dict)
