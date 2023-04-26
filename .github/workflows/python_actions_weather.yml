@@ -1,0 +1,23 @@
+name: Weather GitActions
+
+on: push
+
+jobs:
+  build-linux:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 5
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set ip Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.7'
+    - name: Install python packages
+      run:
+        python -m pip install --upgrade pip
+        pip install beautifulsoup4 requests
+    - name: Execute py script
+      run: python weather.py
+    - uses: stefanzweifel/git-auto-commit-action@v4

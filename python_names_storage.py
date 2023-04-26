@@ -22,8 +22,12 @@ credentials_dict = {
 }
 
 try:
-  f = csv.writer(open('z-artist-names.csv', 'w'))
-  f.writerow(['Name', 'Lastname', 'Link'])
+
+  """Uploads a file to the bucket."""
+  credentials = service_account.Credentials.from_service_account_info(credentials_dict)
+  storage_client = storage.Client(credentials=credentials)
+  bucket = storage_client.get_bucket('artists_names')
+  blob = bucket.blob('artist-names.csv')
 
   pages = []
 
@@ -41,19 +45,7 @@ try:
     artist_name_list = soup.find(class_='BodyText')
     artist_name_list_items = artist_name_list.find_all('a')
 
-    for artist_name in artist_name_list_items:
-      names = artist_name.contents[0]
-      links = 'https://web.archive.org' + artist_name.get('href')
-
-      f.writerow([names, links])
-
-  """Uploads a file to the bucket."""
-  credentials = service_account.Credentials.from_service_account_info(credentials_dict)
-  storage_client = storage.Client(credentials=credentials)
-  bucket = storage_client.get_bucket('artists_names')
-  blob = bucket.blob('artist-names.csv')
-
-  blob.upload_from_filename('z-artist-names.csv')
+    blob.upload_from_string(artist_name_list_items[0].contents[0])
 
 except Exception as ex:
   print(ex) 
