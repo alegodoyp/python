@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from google.cloud import storage
 from google.oauth2 import service_account
 import requests
+import csv
 
 headers = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
@@ -21,27 +22,38 @@ credentials_dict = {
 }
 
 try:
-  res = requests.get(
-    f'https://www.google.com/search?q=SaoPauloCidade&oq=SaoPauloCidade&aqs=chrome.0.35i39l2j0l4j46j69i60.6128j1j7&sourceid=chrome&ie=UTF-8', headers=headers)
+  f = csv.writer(open('z-artist-names.csv', 'w'))
+  f.writerow(['Name', 'Lastname', 'Link'])
 
-  print("Loading...")
+  pages = []
 
-  soup = BeautifulSoup(res.text, 'html.parser')
+  for i in range(1, 5):
+    url = 'https://web.archive.org/web/20121007172955/https://www.nga.gov/collection/anZ' + str(i) + '.htm'
+    pages.append(url)
 
-  info = soup.find_all("span", class_="LrzXr kno-fv wHYlTd z8gr9e")[0].getText()
-  
-  print(info)
+  for item in pages:
+    page = requests.get(item)
+    soup = BeautifulSoup(page.text, 'html.parser')
+
+    last_links = soup.find(class_='AlphaNav')
+    last_links.decompose()
+
+    artist_name_list = soup.find(class_='BodyText')
+    artist_name_list_items = artist_name_list.find_all('a')
+
+    for artist_name in artist_name_list_items:
+      names = artist_name.contents[0]
+      links = 'https://web.archive.org' + artist_name.get('href')
+
+      f.writerow([names, links])
 
   """Uploads a file to the bucket."""
   credentials = service_account.Credentials.from_service_account_info(credentials_dict)
   storage_client = storage.Client(credentials=credentials)
-  bucket = storage_client.get_bucket('weather_sp')
-  blob = bucket.blob('weather_info.txt')
+  bucket = storage_client.get_bucket('artists_names')
+  blob = bucket.blob('artist-names.csv')
 
-  blob.upload_from_string(info + '\n')
+  blob.upload_from_filename('z-artist-names.csv')
 
-  print('File uploaded.')
-
-  print("Finished.")
 except Exception as ex:
   print(ex) 

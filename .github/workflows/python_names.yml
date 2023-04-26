@@ -1,4 +1,4 @@
-name: Python GCP Storage
+name: Python Names Z GitActions
 
 on: push
 
@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 5
-
+    
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -20,7 +20,7 @@ jobs:
           pip install beautifulsoup4 requests
           pip install google-auth
           pip install google-cloud-storage
-    - name: execute py script  
+    - name: execute py script
       run: 
-        python python_weather_storage.py
-      
+        python python_weather.py
+    - uses: stefanzweifel/git-auto-commit-action@v4
