@@ -30,6 +30,7 @@ try:
   blob = bucket.blob('artist-names.csv')
 
   pages = []
+  names = ""
 
   for i in range(1, 5):
     url = 'https://web.archive.org/web/20121007172955/https://www.nga.gov/collection/anZ' + str(i) + '.htm'
@@ -45,7 +46,10 @@ try:
     artist_name_list = soup.find(class_='BodyText')
     artist_name_list_items = artist_name_list.find_all('a')
 
-    blob.upload_from_string(artist_name_list_items[0].contents[0])
+    for artist_name in artist_name_list_items:
+      names = names + artist_name.contents[0] + "\n"
+
+    blob.upload_from_string(names)
 
 except Exception as ex:
   print(ex) 
