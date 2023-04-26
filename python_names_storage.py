@@ -30,7 +30,7 @@ try:
   blob = bucket.blob('artist-names.csv')
 
   pages = []
-  names = ""
+  names = "Name \n"
 
   for i in range(1, 5):
     url = 'https://web.archive.org/web/20121007172955/https://www.nga.gov/collection/anZ' + str(i) + '.htm'
@@ -49,7 +49,7 @@ try:
     for artist_name in artist_name_list_items:
       names = names + artist_name.contents[0] + "\n"
 
-    blob.upload_from_string(names)
+    blob.upload_from_string(names, content_type="text/csv")
 
 except Exception as ex:
   print(ex) 
